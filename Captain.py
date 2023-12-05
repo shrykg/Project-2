@@ -1,4 +1,8 @@
-import Creature
+#Name: Shreyak Godala
+#Date: 12/04/2023
+#Description: Implemention of the Captain class which inherits Creature class
+
+from Creature import Creature
 
 class Captain(Creature):
     def __init__(self, x, y):
@@ -6,11 +10,8 @@ class Captain(Creature):
         self.__veggiesCollected = []
 
     def addVeggie(self, veggie):
-        # Check if the passed object is an instance of Veggie
-        # if isinstance(veggie, Veggie)
-            self.__veggiesCollected.append(veggie)
-        # else:
-        #     print("Error: Only Veggie objects can be added to veggies_collected.")
+        self.__veggiesCollected.append(veggie)
+
 
     def getVeggiesCollected(self):
         return self.__veggiesCollected

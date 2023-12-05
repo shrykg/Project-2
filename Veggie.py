@@ -1,4 +1,9 @@
-import FieldInhabitant
+#Name: Shreyak Godala
+#Date: 12/04/2023
+#Description: Implemention of the Veggie class which inherits FieldInhabitant class
+
+
+from FieldInhabitant import FieldInhabitant
 
 
 class Veggie(FieldInhabitant):
