@@ -1,3 +1,7 @@
+#Name: Kshitij Patil 
+#Date: 12/04/2023
+#Description: Implementing the Snake Class
+
 from Creature import Creature
 
 class Snake(Creature):

@@ -1,3 +1,7 @@
+#Name: Kshitij Patil 
+#Date: 12/04/2023
+#Description: Implementing the Creature Class
+
 from FieldInhabitant import FieldInhabitant
 
 # Creature class inheriting from FieldInhabitant
