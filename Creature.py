@@ -4,17 +4,17 @@ from FieldInhabitant import FieldInhabitant
 class Creature(FieldInhabitant):
     def __init__(self, x, y, symbol):
         super().__init__(symbol)
-        self.x = x
-        self.y = y
+        self.__x = x
+        self.__y = y
     
     def get_x(self):
-        return self.x
+        return self.__x
     
     def set_x(self, x):
-        self.x = x
+        self.__x = x
     
     def get_y(self):
-        return self.y
+        return self.__y
     
     def set_y(self, y):
-        self.y = y
+        self.__y = y
