@@ -111,7 +111,7 @@ class GameEngine:
         print("Welcome to the Vegetable Harvesting Game!")
         print("The goal of the game is to collect as many vegetables as possible while avoiding the rabbits.")
         print("List of vegetables, their symbols, names, and point values:")
-        print(self.__possible_veggies)
+
         for veggie in self.__possible_veggies:
             print(veggie)
 
@@ -171,22 +171,15 @@ class GameEngine:
         currentY = self.__captain.get_y()
         newX = currentX
         newY = currentY
-        print('currentX',currentX)
-        print('currentY',currentY)
-        print('newX',newX)
-        print('newY',newY)
+
         if verticalMovement.lower() == 'w':
             # newY -= 1
             newX -= 1
-            print('after movement w')
-            print('newX', newX)
-            print('newY', newY)
+
         elif verticalMovement.lower() == 's':
             # newY += 1
             newX += 1
-            print('after movement s')
-            print('newX', newX)
-            print('newY', newY)
+
 
         # make sure movement is within the boundary of field
         if 0 <= newX < len(self.__field) and 0 <= newY < len(self.__field[0]):
