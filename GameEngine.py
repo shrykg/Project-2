@@ -36,14 +36,22 @@ class GameEngine:
                     fieldWidth = firstLine[2]
                     fieldHeight = firstLine[1]
 
+
+
                     # Initialize the field
-                    self.__field = [[None for _ in range(int(fieldWidth)) for _ in range(int(fieldHeight))]]
+                    for j in range(int(fieldHeight)):
+                        row = []
+                        for i in range(int(fieldWidth)):
+                           row.append(None)
+                        self.__field.append(row)
+
+
 
                     # Populate possible_veggies list
                     for line in lines[1:]:
                         veggie_info = line.strip().split(',')
                         name, symbol, points = veggie_info[0], veggie_info[1], int(veggie_info[2])
-                        self.__possible_veggies.append(Veggie(symbol, name, points))
+                        self.__possible_veggies.append(Veggie(name, symbol, points))
                     break
             except FileNotFoundError:
                 print("File not found. Enter a valid file name.")
@@ -92,13 +100,18 @@ class GameEngine:
         self.initRabbits()
 
     def remainingVeggies(self):
-        count = sum(row.count(None) for row in self.__field)
+        count = 0
+        for row in self.__field:
+            for cell in row:
+                if isinstance(cell, Veggie):
+                    count += 1
         return count
 
     def intro(self):
         print("Welcome to the Vegetable Harvesting Game!")
         print("The goal of the game is to collect as many vegetables as possible while avoiding the rabbits.")
         print("List of vegetables, their symbols, names, and point values:")
+        print(self.__possible_veggies)
         for veggie in self.__possible_veggies:
             print(veggie)
 
@@ -112,7 +125,11 @@ class GameEngine:
             print("|", end=" ")
             for col in row:
                 print(col.getSymbol() if col else " ", end=" | ")
-            print("\n" + "-" * (len(row) * 4 + 3))
+            print('\n')
+        print("-" * (len(self.__field[0]) * 4 + 3))
+
+
+
 
     def getScore(self):
         return self.__score
@@ -144,7 +161,7 @@ class GameEngine:
                     self.__field[x][y] = None
                     rabbit.set_x(new_x)
                     rabbit.set_y(new_y)
-                    self.__possible_veggies.remove(veggie)
+                    # self.__possible_veggies.remove(veggie)
 
 
 
@@ -154,10 +171,22 @@ class GameEngine:
         currentY = self.__captain.get_y()
         newX = currentX
         newY = currentY
+        print('currentX',currentX)
+        print('currentY',currentY)
+        print('newX',newX)
+        print('newY',newY)
         if verticalMovement.lower() == 'w':
-            newY -= 1
+            # newY -= 1
+            newX -= 1
+            print('after movement w')
+            print('newX', newX)
+            print('newY', newY)
         elif verticalMovement.lower() == 's':
-            newY += 1
+            # newY += 1
+            newX += 1
+            print('after movement s')
+            print('newX', newX)
+            print('newY', newY)
 
         # make sure movement is within the boundary of field
         if 0 <= newX < len(self.__field) and 0 <= newY < len(self.__field[0]):
@@ -174,9 +203,10 @@ class GameEngine:
                 self.__captain.set_y(newY)
                 veggie = self.__field[newX][newY]
                 print(f'Yummy! A delicious {veggie.getName()}')
-                self.__possible_veggies.remove(veggie)
+                # self.__possible_veggies.remove(veggie)
                 self.__captain.addVeggie(veggie)
                 self.__score += veggie.getPoints()
+                self.__field[currentX][currentY] = None
                 self.__field[newX][newY] = self.__captain
 
             elif isinstance(self.__field[newX][newY], Rabbit):
@@ -191,9 +221,11 @@ class GameEngine:
         newY = currentY
         # set new position based on movement
         if horizontalMovement.lower() == 'a':
-            newX -= 1
+            # newX -= 1
+              newY -= 1
         elif horizontalMovement.lower() == 'd':
-            newX += 1
+            # newX += 1
+              newY += 1
 
         # make sure movement is within the boundary of field
         if 0 <= newX < len(self.__field) and 0 <= newY < len(self.__field[0]):
@@ -210,9 +242,10 @@ class GameEngine:
                 self.__captain.set_y(newY)
                 veggie = self.__field[newX][newY]
                 print(f'Yummy! A delicious {veggie.getName()}')
-                self.__possible_veggies.remove(veggie)
+                # self.__possible_veggies.remove(veggie)
                 self.__captain.addVeggie(veggie)
                 self.__score += veggie.getPoints()
+                self.__field[currentX][currentY] = None
                 self.__field[newX][newY] = self.__captain
 
             elif isinstance(self.__field[newX][newY], Rabbit):
@@ -221,11 +254,11 @@ class GameEngine:
 
     def moveCaptain(self):
 
-        direction = input('Would you like to move up(W), down(S), left(A), or right(D)').lower()
+        direction = input('Would you like to move up(W), down(S), left(A), or right(D): ').lower()
 
-        if direction == 'w' or 's': # if direction is up or down call moveCptVertical
+        if direction == 'w' or direction == 's': # if direction is up or down call moveCptVertical
             self.moveCptVertical(direction)
-        elif direction == 'a' or 'd': # # if direction is left or right call moveCptHorizontal
+        elif direction == 'a' or direction == 'd': # # if direction is left or right call moveCptHorizontal
             self.moveCptHorizontal(direction)
         else:
             print(f'{direction} is not a valid option')
