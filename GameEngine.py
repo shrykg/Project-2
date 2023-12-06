@@ -29,12 +29,18 @@ class GameEngine:
             try:
                 with open(filename, 'r') as file:
                     lines = file.readlines()
+
+                    firstLine = lines[0].strip().split(',')
+                    fieldWidth = firstLine[2]
+                    fieldHeight = firstLine[1]
+
                     # Initialize the field
-                    self.__field = [[None for _ in range(int(lines[0]))] for _ in range(int(lines[1]))]
+                    self.__field = [[None for _ in range(int(fieldWidth)) for _ in range(int(fieldHeight))]]
+
                     # Populate possible_veggies list
-                    for line in lines[2:]:
+                    for line in lines[1:]:
                         veggie_info = line.strip().split(',')
-                        symbol, name, points = veggie_info[0], veggie_info[1], int(veggie_info[2])
+                        name, symbol, points = veggie_info[0], veggie_info[1], int(veggie_info[2])
                         self.__possible_veggies.append(Veggie(symbol, name, points))
                     break
             except FileNotFoundError:

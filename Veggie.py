@@ -8,7 +8,7 @@ from FieldInhabitant import FieldInhabitant
 
 class Veggie(FieldInhabitant):
     def __init__(self, name, symbol, points):
-        super().__init__(self, symbol)
+        super().__init__(symbol)
         self.__name = name
         self.__points = points
 
@@ -25,7 +25,7 @@ class Veggie(FieldInhabitant):
         return self.__points
 
     def getSymbol(self):
-        return super().__symbol
+        return super().getSymbol()
 
     def __str__(self):
-        print(f'{self.__symbol}: {self.__name} {self.__points} points')
+        return f'{self.getSymbol()}: {self.__name} {self.__points} points'
