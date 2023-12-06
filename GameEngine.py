@@ -7,6 +7,7 @@ from FieldInhabitant import FieldInhabitant
 from Captain import Captain
 from Veggie import Veggie
 from Rabbit import Rabbit
+from snake import snake
 
 class GameEngine:
     NUMBEROFVEGGIES = 30
@@ -19,6 +20,7 @@ class GameEngine:
         self.captain = None  # Variable to store the Captain object
         self.possible_veggies = []  # List to store possible vegetable objects
         self.score = 0  # Variable to store the score
+        self.snake = None  # Variable to store the Snake object
 
     def initVeggies(self):
         # Prompt user for veggie file
@@ -54,6 +56,14 @@ class GameEngine:
             if self.field[x][y] is None:
                 self.captain = Captain(x, y) 
                 self.field[x][y] = self.captain
+                break
+
+    def initSnake(self):
+        while True:
+            x, y = random.randint(0, len(self.field) - 1), random.randint(0, len(self.field[0]) - 1)
+            if self.field[x][y] is None:
+                self.snake = Snake(x, y)
+                self.field[x][y] = self.snake
                 break
 
     def initRabbits(self):
